@@ -2,7 +2,6 @@ import React, { useState, useEffect} from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import { response } from 'express';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -27,6 +26,9 @@ function UploadVideoPage() {
     const [privacy, setPrivacy] = useState(0)
     const [Categories, setCategories] = useState("Film & Animation")
     const [FilePath, setFilePath] = useState("")
+    const [Duration, setDuration] = useState("")
+    const [Thumbnail, setThumbnail] = useState("")
+
 
     const handleChangeTitle = ( event ) => {
         setTitle(event.currentTarget.value)
@@ -50,32 +52,45 @@ function UploadVideoPage() {
 
     }
 
-
     const onDrop = ( files ) => {
+
         let formData = new FormData();
         const config = {
             header: { 'content-type': 'multipart/form-data' }
         }
-        console.log(files);
+        console.log(files)
         formData.append("file", files[0])
 
         axios.post('/api/video/uploadfiles', formData, config)
-            .then(resposne => {
-                if (resposne.data.success) {
-                    let variable = {
-                        filePath: response.data.filePath,
-                        fileName: response.data.fileName
+        .then(response=> {
+            if(response.data.success){
+
+                let variable = {
+                    filePath: response.data.filePath,
+                    fileName: response.data.fileName
+                }
+                setFilePath(response.data.filePath)
+
+                //gerenate thumbnail with this filepath !
+
+                axios.post('/api/video/thumbnail', variable)
+                .then(response => {
+                    if(response.data.success) {
+                        setDuration(response.data.fileDuration)
+                        setThumbnail(response.data.thumbsFilePath)
+                    } else {
+                        alert('Failed to make the thumbnails');
                     }
-                    setFilePath(response.data.filePath)
+                })
 
-                    //generate thumbnail with this filepath
 
-                } else {
-                    alert('failed to save the video in server')
+            } else {
+                alert('failed to save the video in server')
             }
         })
 
     }
+
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -84,8 +99,8 @@ function UploadVideoPage() {
 
         <Form onSubmit={onSubmit}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Dropzone
-                    onDrop = {onDrop}
+                <Dropzone
+                    onDrop={onDrop}
                     multiple={false}
                     maxSize={800000000}>
                     {({ getRootProps, getInputProps }) => (
@@ -99,11 +114,11 @@ function UploadVideoPage() {
                     )}
                 </Dropzone>
 
-                {/* {thumbnail !== "" &&
+                {Thumbnail !== "" &&
                     <div>
-                        <img src={`http://localhost:5000/${thumbnail}`} alt="haha" />
+                        <img src={`http://localhost:5000/${Thumbnail}`} alt="haha" />
                     </div>
-                } */}
+                }
             </div>
 
             <br /><br />
