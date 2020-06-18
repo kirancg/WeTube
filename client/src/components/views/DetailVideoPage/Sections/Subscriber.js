@@ -6,7 +6,36 @@ function Subscriber(props) {
     const userFrom = props.userFrom
 
     const [SubscribeNumber, setSubscribeNumber] = useState(0);
-    const[Subscribed, setSubscribed] = useState(false)
+    const [Subscribed, setSubscribed] = useState(false)
+
+    const onSubscribe = () => {
+        let subscribeVariables =  {
+            userTo: userTo,
+            userFrom: userFrom
+        }
+        if (Subscribed) {
+            axios.post('/api/subscribe/unsubscribe', subscribeVariables)
+                .then(response => {
+                    if (response.data.success) {
+                        setSubscribeNumber(SubscribeNumber - 1)
+                        setSubscribed(!Subscribed)
+                    } else {
+                        alert('Failed to subscribe')
+                    }
+            })
+        } else {
+            axios.post('/api/subscribe/subscribe', subscribeVariables)
+                .then(response => {
+                    if (response.data.success) {
+                        setSubscribeNumber(SubscribeNumber + 1)
+                        setSubscribed(!Subscribed)
+                    } else {
+                        alert('Failed to subscribe')
+                    }
+            })
+        }
+    }
+
     useEffect(() => {
         const subscribeNumberVariables = { userTo:userTo ,userFrom:userFrom}
         axios.post('/api/subscribe/subscribeNumber', subscribeNumberVariables)
@@ -31,8 +60,10 @@ function Subscriber(props) {
 
     return (
         <div>
-            <button style={{
-                backgroundColor: `${Subscribed ? '#AAAAA' : '#CC0000'}` , borderRadius: '4px', color: 'white',
+            <button
+                onClick = {onSubscribe}
+                style={{
+                backgroundColor: `${Subscribed ? '#AAAAAA' : '#CC0000'}` , borderRadius: '4px', color: 'white',
                 padding: '10px 16px', fontWeight:'500',fontSize:'1rem',textTransform:'uppercase'
             }}>
                 {SubscribeNumber} {Subscribed ?'Subscribed':'Subscribe'}
