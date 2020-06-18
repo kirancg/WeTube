@@ -3,7 +3,6 @@ const router = express.Router();
 const multer = require('multer');
 var ffmpeg = require('fluent-ffmpeg');
 
-const { User } = require("../models/User");
 const { Video } = require("../models/Video");
 
 const { auth } = require("../middleware/auth");
@@ -78,6 +77,21 @@ router.post("/thumbnail", (req, res) => {
 });
 
 
+
+
+router.get("/getVideos", (req, res) => {
+
+    Video.find()
+        .populate('writer')
+        .exec((err, videos) => {
+            if(err) return res.status(400).send(err);
+            res.status(200).json({ success: true, videos })
+        })
+
+});
+
+
+
 router.post("/uploadVideo", (req, res) => {
 
     const video = new Video(req.body)
@@ -91,17 +105,16 @@ router.post("/uploadVideo", (req, res) => {
 
 });
 
-//getting the list of videos
 
-router.get("/getVideos", (req, res) => {
+router.post("/getVideo", (req, res) => {
 
-    Video.find()
-        .populate('writer')
-        .exec((err, videos) => {
-            if(err) return res.status(400).send(err);
-            res.status(200).json({ success: true, videos })
-        })
-
+    Video.findOne({ "_id" : req.body.videoId })
+    .populate('writer')
+    .exec((err, video) => {
+        if(err) return res.status(400).send(err);
+        res.status(200).json({ success: true, video })
+    })
 });
+
 
 module.exports = router;
