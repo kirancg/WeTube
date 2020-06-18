@@ -76,9 +76,6 @@ router.post("/thumbnail", (req, res) => {
 
 });
 
-
-
-
 router.get("/getVideos", (req, res) => {
 
     Video.find()
