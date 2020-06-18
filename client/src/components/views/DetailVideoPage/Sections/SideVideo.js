@@ -14,7 +14,7 @@ function SideVideo() {
                     alert('Failed to get Videos')
                 }
             })
-
+        
 
     }, [])
 
@@ -48,8 +48,8 @@ function SideVideo() {
 
 
         </React.Fragment>
-
-
+        
+       
     )
 }
 
