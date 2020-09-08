@@ -7,6 +7,29 @@
 <br>
 <hr>
 
+Features
+Sign in / Sign Up to create channel
+Video
+Upload video
+Upload video thumbnail
+Watch video
+Increase Views
+Like and dislike video
+Download video
+Comment & reply for video
+Update video details
+Delete video
+Subscribe to a channel
+View liked videos
+Trending
+Subscriptions
+History
+Watch history
+Search history
+Settings
+Modify channel name and email
+Change password
+Upload channel avatar
 
 ## <b>Steps to run the application</b>
 
