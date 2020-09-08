@@ -63,7 +63,6 @@ function SingleComment(props) {
                 }
             ></Comment>
 
-
             {OpenReply &&
                 <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                     <TextArea
