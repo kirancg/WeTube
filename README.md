@@ -1,4 +1,4 @@
-##YouTube Clone - MERN Stack
+##`YouTube Clone - MERN Stack`
 
 <ol>
 <li>Fork the repo on your github to work on it</li>
@@ -7,29 +7,20 @@
 <br>
 <hr>
 
-Features
-Sign in / Sign Up to create channel
-Video
-Upload video
-Upload video thumbnail
-Watch video
-Increase Views
-Like and dislike video
-Download video
-Comment & reply for video
-Update video details
-Delete video
-Subscribe to a channel
-View liked videos
-Trending
-Subscriptions
-History
-Watch history
-Search history
-Settings
-Modify channel name and email
-Change password
-Upload channel avatar
+##`Features`
+<ul>
+    <li>Sign in / Sign Up</li>
+    <li>Upload video</li>
+    <li>Upload video thumbnail</li>
+    <li>Watch video</li>
+    <li>Like and dislike video</li>
+    <li>Comment & reply for video</li>
+    <li>Update video details</li>
+    <li>Delete video</li>
+    <li>Subscribe to a channel</li>
+    <li>Delete video</li>
+    <li>Subscriptions</li>
+</ul>
 
 ## <b>Steps to run the application</b>
 
